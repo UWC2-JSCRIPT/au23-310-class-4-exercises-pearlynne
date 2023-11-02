@@ -5,11 +5,18 @@
 //  * @constructor
 //  * @param {string} name - The name of the player
 //  */
-// class CardPlayer {}; //TODO
+class CardPlayer {
+  constructor(name) {
+    this.name = name;
+		this.hand = [];
+		this.drawCard = drawCard(); //will cause errors for now
+  }
+	}; 
+
 
 // // CREATE TWO NEW CardPlayers
-// const dealer; // TODO
-// const player; // TODO
+const dealer = new CardPlayer('dealer'); // TODO
+const player = new CardPlayer('player'); // TODO
 
 // /**
 //  * Calculates the score of a Blackjack hand
@@ -20,6 +27,9 @@
 //  */
 // const calcPoints = (hand) => {
 //   // CREATE FUNCTION HERE
+
+			// is ace worth 1 or 11
+			//if dealer's hand is 16 or lower...
 
 // }
 
