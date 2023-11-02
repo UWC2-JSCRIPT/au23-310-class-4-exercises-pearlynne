@@ -1,4 +1,4 @@
-// const blackjackDeck = getDeck();
+const blackjackDeck = getDeck();
 
 // /**
 //  * Represents a card player (including dealer).
@@ -6,17 +6,21 @@
 //  * @param {string} name - The name of the player
 //  */
 class CardPlayer {
-  constructor(name) {
-    this.name = name;
+	constructor(name) {
+		this.name = name;
 		this.hand = [];
-		this.drawCard = drawCard(); //will cause errors for now
-  }
-	}; 
+	}
+
+	drawCard() {
+		let randomCard = blackjackDeck[Math.floor(Math.random() * 52)]
+		this.hand.push(randomCard)
+	}
+};
 
 
 // // CREATE TWO NEW CardPlayers
-const dealer = new CardPlayer('dealer'); // TODO
-const player = new CardPlayer('player'); // TODO
+const dealer = new CardPlayer('dealer');
+const player = new CardPlayer('player');
 
 // /**
 //  * Calculates the score of a Blackjack hand
@@ -28,8 +32,8 @@ const player = new CardPlayer('player'); // TODO
 // const calcPoints = (hand) => {
 //   // CREATE FUNCTION HERE
 
-			// is ace worth 1 or 11
-			//if dealer's hand is 16 or lower...
+// is ace worth 1 or 11
+//if dealer's hand is 16 or lower...
 
 // }
 
