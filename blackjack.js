@@ -1,10 +1,10 @@
 const blackjackDeck = getDeck();
 
-// /**
-//  * Represents a card player (including dealer).
-//  * @constructor
-//  * @param {string} name - The name of the player
-//  */
+/**
+ * Represents a card player (including dealer).
+ * @constructor
+ * @param {string} name - The name of the player
+ */
 class CardPlayer {
 	constructor(name) {
 		this.name = name;
@@ -22,18 +22,18 @@ class CardPlayer {
 const dealer = new CardPlayer('dealer');
 const player = new CardPlayer('player');
 
-// /**
-//  * Calculates the score of a Blackjack hand
-//  * @param {Array} hand - Array of card objects with val, displayVal, suit properties
-//  * @returns {Object} blackJackScore
-//  * @returns {number} blackJackScore.total
-//  * @returns {boolean} blackJackScore.isSoft
-//  */
+/**
+ * Calculates the score of a Blackjack hand
+ * @param {Array} hand - Array of card objects with val, displayVal, suit properties
+ * @returns {Object} blackJackScore
+ * @returns {number} blackJackScore.total
+ * @returns {boolean} blackJackScore.isSoft
+ */
 const calcPoints = (hand) => {
-	// CREATE FUNCTION HERE
-	
+	//!! does not take into accounf points > 21 without aces
+
 	// Set isSoft as false with no Aces
-	let isSoft = false; 
+	let isSoft = false;
 
 	// Calculate total points
 	let total = 0;
@@ -43,7 +43,7 @@ const calcPoints = (hand) => {
 
 	// Create variable to find Ace in deck
 	let aceExist = hand.filter((card) => card.displayVal === 'Ace')
-	
+
 	// If more than 1 ace exists, 
 	if (aceExist.length > 0) {
 
@@ -51,17 +51,17 @@ const calcPoints = (hand) => {
 		if (total <= 21) {
 			isSoft = true
 			return { total: total, isSoft: isSoft }
-		}	
-			//Total is more than 21; Ace changes to 1
-			const findAce = hand.findIndex((card) => card.displayVal === 'Ace')
-			hand[findAce].val = 1
-			total -= 10 //fix this later to not hardcode; issoft is still false
+		}
 
-			// Exception, if there is an additional ace with val of 11 present
-			// isSoft is True
-			if (hand.find((card) => card.val === 11)) {
-				isSoft = true;
-			}
+		//Total is more than 21; Ace changes to 1
+		const findAce = hand.findIndex((card) => card.displayVal === 'Ace')
+		hand[findAce].val = 1
+		total -= 10 //fix this later to not hardcode; issoft is still false
+
+		// isSoft is True, if there is an additional ace with val of 11 present
+		if (hand.find((card) => card.val === 11)) {
+			isSoft = true;
+		}
 	}
 	return { total: total, isSoft: isSoft }
 }
@@ -82,24 +82,45 @@ let hand3 = [
 ]
 let hand4 = [
 	{ val: 10, displayVal: 'Queen', suit: 'spades' },
-	{ val: 2, displayVal: '', suit: 'hearts' }] // false
+	{ val: 7, displayVal: '', suit: 'hearts' }] // false
 
 let hand5 = [
 	{ val: 10, displayVal: 'Queen', suit: 'spades' },
 	{ val: 8, displayVal: '', suit: 'hearts' },
 	{ val: 8, displayVal: '', suit: 'hearts' }] // false
 
+let hand6 = [
+	{ val: 10, displayVal: 'Queen', suit: 'spades' },
+	{ val: 6, displayVal: '', suit: 'hearts' },
+	{ val: 11, displayVal: 'Ace', suit: 'spades' }] // false
 
-// /**
-//  * Determines whether the dealer should draw another card.
-//  * 
-//  * @param {Array} dealerHand Array of card objects with val, displayVal, suit properties
-//  * @returns {boolean} whether dealer should draw another card
-//  */
-// const dealerShouldDraw = (dealerHand) => {
-//   // CREATE FUNCTION HERE
+/**
+ * Determines whether the dealer should draw another card.
+ * 
+ * @param {Array} dealerHand Array of card objects with val, displayVal, suit properties
+ * @returns {boolean} whether dealer should draw another card
+ */
 
-// }
+const dealerShouldDraw = (dealerHand) => {
+
+	let currentTotal = calcPoints(dealerHand).total
+	let isSoft = calcPoints(dealerHand).isSoft
+	
+	// If hand is 16 points or less, draw another card
+	if (currentTotal <= 16) {
+		return true
+	// Exactly 17 points, and an Ace valued at 11, draw another card
+	} else if (currentTotal = 17 && isSoft == true) {
+		return true
+	// Is 17 points or more, end turn
+	} else if (currentTotal >= 17 && currentTotal <= 21) {
+		return false
+	// Total goes over 21, lose the round
+	} else {
+		return false
+	}
+
+}
 
 // /**
 //  * Determines the winner if both player and dealer stand
