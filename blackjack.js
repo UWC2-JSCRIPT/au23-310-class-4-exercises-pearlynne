@@ -29,13 +29,66 @@ const player = new CardPlayer('player');
 //  * @returns {number} blackJackScore.total
 //  * @returns {boolean} blackJackScore.isSoft
 //  */
-// const calcPoints = (hand) => {
-//   // CREATE FUNCTION HERE
+const calcPoints = (hand) => {
+	// CREATE FUNCTION HERE
+	
+	// Set isSoft as false with no Aces
+	let isSoft = false; 
 
-// is ace worth 1 or 11
-//if dealer's hand is 16 or lower...
+	// Calculate total points
+	let total = 0;
+	hand.forEach((hand) => {
+		total += hand.val
+	})
 
-// }
+	// Create variable to find Ace in deck
+	let aceExist = hand.filter((card) => card.displayVal === 'Ace')
+	
+	// If more than 1 ace exists, 
+	if (aceExist.length > 0) {
+
+		// Total is less than 21; Ace remains as 11
+		if (total <= 21) {
+			isSoft = true
+			return { total: total, isSoft: isSoft }
+		}	
+			//Total is more than 21; Ace changes to 1
+			const findAce = hand.findIndex((card) => card.displayVal === 'Ace')
+			hand[findAce].val = 1
+			total -= 10 //fix this later to not hardcode; issoft is still false
+
+			// Exception, if there is an additional ace with val of 11 present
+			// isSoft is True
+			if (hand.find((card) => card.val === 11)) {
+				isSoft = true;
+			}
+	}
+	return { total: total, isSoft: isSoft }
+}
+
+
+let hand1 = [
+	{ val: 10, displayVal: 'King', suit: 'spades' },
+	{ val: 11, displayVal: 'Ace', suit: 'spades' } // true
+]
+let hand2 = [
+	{ val: 10, displayVal: 'Queen', suit: 'spades' },
+	{ val: 2, displayVal: '', suit: 'hearts' },
+	{ val: 11, displayVal: 'Ace', suit: 'clubs' }] //false
+
+let hand3 = [
+	{ val: 11, displayVal: 'Ace', suit: 'hearts' },
+	{ val: 11, displayVal: 'Ace', suit: 'spades' } //true
+]
+let hand4 = [
+	{ val: 10, displayVal: 'Queen', suit: 'spades' },
+	{ val: 2, displayVal: '', suit: 'hearts' }] // false
+
+let hand5 = [
+	{ val: 10, displayVal: 'Queen', suit: 'spades' },
+	{ val: 8, displayVal: '', suit: 'hearts' },
+	{ val: 8, displayVal: '', suit: 'hearts' }] // false
+
 
 // /**
 //  * Determines whether the dealer should draw another card.
