@@ -60,8 +60,8 @@ const cards = [
  */
 const logCardDeck = deck => {
 	for (let key in deck) {
-		console.log(`The ${deck[key].displayVal} of ${deck[key].suit} has a value of ${deck[key].val}`)
+		console.log(`The ${deck[key].displayVal} of ${deck[key].suit} has a value of ${deck[key].val}`);
 }
 };
 
-logCardDeck(cards)
+logCardDeck(cards);
