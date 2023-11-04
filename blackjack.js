@@ -12,7 +12,7 @@ class CardPlayer {
 	}
 
 	drawCard() {
-		let randomCard = blackjackDeck[Math.floor(Math.random() * blackjackDeck.length)]; 
+		let randomCard = blackjackDeck[Math.floor(Math.random() * blackjackDeck.length)];
 		this.hand.push(randomCard);
 	}
 };
@@ -48,8 +48,8 @@ const calcPoints = (hand) => {
 
 		// Total is less than 21; Ace remains as 11
 		if (total <= 21) {
-			isSoft = true
-			return { total: total, isSoft: isSoft }
+			isSoft = true;
+			return { total: total, isSoft: isSoft };
 		}
 
 		// Total is more than 21; Ace changes to 1
@@ -117,8 +117,8 @@ const determineWinner = (playerScore, dealerScore) => {
  * @param {string} dealerCard 
  */
 const getMessage = (count, dealerCard) => {
-			// document.body.write =  `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.`;
-		return `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.  Draw card?`;
+	// document.body.write =  `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.`;
+	return `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.  Draw card?`;
 }
 
 /**
@@ -144,6 +144,11 @@ const startGame = function () {
 
 	let playerScore = calcPoints(player.hand).total;
 	showHand(player);
+
+	// Added this for extra credit but to review
+	if (playerScore === 21) {
+		return 'Player wins!';
+	}
 	while (playerScore < 21 && confirm(getMessage(playerScore, dealer.hand[0]))) {
 		player.drawCard();
 		playerScore = calcPoints(player.hand).total;
@@ -155,6 +160,11 @@ const startGame = function () {
 	console.log(`Player stands at ${playerScore}`);
 
 	let dealerScore = calcPoints(dealer.hand).total;
+
+	// Added this for extra credit but to review
+	if (dealerScore === 21) {
+		return 'Dealer wins!';
+	}
 	while (dealerScore < 21 && dealerShouldDraw(dealer.hand)) {
 		dealer.drawCard();
 		dealerScore = calcPoints(dealer.hand).total;
