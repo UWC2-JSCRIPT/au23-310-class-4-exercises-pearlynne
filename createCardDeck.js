@@ -3,8 +3,8 @@
  * @returns {Array} deck - a deck of cards
  */
 const getDeck = () => {
-	const deck = []
-	const suits = ['hearts', 'spades', 'clubs', 'diamonds']
+	const deck = [];
+	const suits = ['hearts', 'spades', 'clubs', 'diamonds'];
 
 	for (let index = 0; index < suits.length; index++) {
 		// create an array of 13 objects
@@ -12,20 +12,20 @@ const getDeck = () => {
 			// for each loop, push a card object to the deck
 
 			// special cases for when j > 10
-			let displayVal = ''
+			let displayVal = '';
 
+			// changed this from switch case
 			if (j === 1) {
-				displayVal = 'Ace'
+				displayVal = 'Ace';
 			} else if (j === 11) {
-				displayVal = 'Jack'
+				displayVal = 'Jack';
 			} else if (j === 12) {
-				displayVal = 'Queen'
+				displayVal = 'Queen';
 			} else if (j === 13) {
-				displayVal = 'King'
+				displayVal = 'King';
 			} else {
-				displayVal = j.toString()
+				displayVal = j; // not to.string() for the console to work.
 			}
-
 
 			const card = {
 				val: j,
@@ -34,15 +34,14 @@ const getDeck = () => {
 			}
 
 			if (displayVal === 'Ace') {
-				card.val = 11
+				card.val = 11;
 			}
 
 			if (displayVal === 'King' || displayVal === 'Jack' || displayVal === 'Queen') {
-				card.val = 10
+				card.val = 10;
 			}
 
-
-			deck.push(card)
+			deck.push(card);
 		}
 	}
 	return deck
@@ -50,20 +49,22 @@ const getDeck = () => {
 
 // CHECKS
 const deck = getDeck()
-console.log(`Deck length equals 52? ${deck.length === 52}`)
+console.log(`Deck length equals 52? ${deck.length === 52}`);
 
-const randomCard = deck[Math.floor(Math.random() * 52)]
+const randomCard = deck[Math.floor(Math.random() * 52)];
 
 const cardHasVal =
-	randomCard && randomCard.val && typeof randomCard.val === 'number'
-console.log(`Random card has val? ${cardHasVal}`)
+	randomCard && randomCard.val && typeof randomCard.val === 'number';
+console.log(`Random card has val? ${cardHasVal}`);
 
 const cardHasSuit =
-	randomCard && randomCard.suit && typeof randomCard.suit === 'string'
-console.log(`Random card has suit? ${cardHasSuit}`)
+	randomCard && randomCard.suit && typeof randomCard.suit === 'string';
+console.log(`Random card has suit? ${cardHasSuit}`);
 
-// Fixed error here
+
 const cardHasDisplayVal =
-	randomCard && randomCard.displayVal !== ''
+  randomCard &&
+  randomCard.displayVal &&
+  typeof randomCard.displayVal === 'string';
 
-console.log(`Random card has display value? ${cardHasDisplayVal}`)
+console.log(`Random card has display value? ${cardHasDisplayVal}`);
