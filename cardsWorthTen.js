@@ -24,12 +24,11 @@ const cards = [
 const cardsWorthTen = cards => {
 	let result = [];
 	testVariable = cards.filter((item) => {
-		if (item.val == 10) {
+		if (item.val === 10) {
 			result.push(item.displayVal);
 		}
 	})
 	return result.join(', ');
-
 };
 
 
