@@ -18,8 +18,8 @@ class CardPlayer {
 };
 
 // // CREATE TWO NEW CardPlayers
-const dealer = new CardPlayer('dealer');
-const player = new CardPlayer('player');
+const dealer = new CardPlayer('Dealer');
+const player = new CardPlayer('Player');
 
 /**
  * Calculates the score of a Blackjack hand
@@ -31,7 +31,7 @@ const player = new CardPlayer('player');
 
 const calcPoints = (hand) => {
 
-	// Set isSoft as false with no Aces
+	// Set isSoft is false without Aces
 	let isSoft = false;
 
 	// Calculate total points
@@ -40,29 +40,26 @@ const calcPoints = (hand) => {
 		total += hand.val;
 	});
 
-	// Create variable to find Ace in deck
+	// Count number of Aces in hand
 	let aceExist = hand.filter((card) => card.displayVal === 'Ace');
+	let numAces = aceExist.length;
 
 	// For more than one Ace,
-	if (aceExist.length > 0) {
+	if (numAces > 0) {
 
-		// Total is less than 21; Ace remains as 11
+		// Calculate number of mandatory deductions 
+		// Maximum of 1 Ace value at 11 
+		deductAllButOne = (numAces - 1) * 10
+		total -= deductAllButOne;
+
 		if (total <= 21) {
 			isSoft = true;
-			return { total: total, isSoft: isSoft };
+			// total = total;
 		}
-
-		// Total is more than 21; Ace changes to 1
-		// Only deduct 10 if card.val = 11, no need to deduct if card is already 1
-		const findAce = hand.findIndex((card) => (card.displayVal === 'Ace' && card.val === 11));
-		hand[findAce].val = 1;
-		total -= 10;
-
-		// Maybe should count a new total instead of hardcoding?
-
-		// isSoft is True, if there is an additional ace with val of 11 present
-		if (hand.find((card) => card.val === 11)) {
-			isSoft = true;
+		if (total > 21) {
+			// Apply optional deduction from remaining Ace
+			// isSoft = false;
+			total -= 10;
 		}
 	}
 	return { total: total, isSoft: isSoft };
@@ -84,7 +81,7 @@ const dealerShouldDraw = (dealerHand) => {
 	if (currentTotal <= 16) {
 		return true;
 		// Exactly 17 points, and an Ace valued at 11, draw another card
-	} else if (currentTotal = 17 && isSoft == true) {
+	} else if (currentTotal == 17 && isSoft == true) {
 		return true;
 		// 17 points or more, or total goes over 21, end
 	} else {
@@ -117,7 +114,6 @@ const determineWinner = (playerScore, dealerScore) => {
  * @param {string} dealerCard 
  */
 const getMessage = (count, dealerCard) => {
-	// document.body.write =  `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.`;
 	return `Dealer showing ${dealerCard.displayVal} of value ${dealerCard.val}, your count is ${count}.  Draw card?`;
 }
 
@@ -127,10 +123,10 @@ const getMessage = (count, dealerCard) => {
  */
 let showHand = (player) => {
 	let displayHand = player.hand.map((card) => card.displayVal);
-	// document.body.write = `${player.name}'s hand is ${displayHand.join(', ')} (${calcPoints(player.hand).total})`;
+	// Added to input onto HTML (does not automatically write due to prompt message)
+	document.write(`${player.name}'s hand is ${displayHand.join(', ')} (${calcPoints(player.hand).total}). <br>`);
 	console.log(`${player.name}'s hand is ${displayHand.join(', ')} (${calcPoints(player.hand).total})`);
 }
-//!need to fix this
 
 
 /**
@@ -145,10 +141,24 @@ const startGame = function () {
 	let playerScore = calcPoints(player.hand).total;
 	showHand(player);
 
-	// Added this for extra credit but to review
-	if (playerScore === 21) {
-		return 'Player wins!';
+	let dealerScore = calcPoints(dealer.hand).total;
+
+	// Show of player's and dealer's hand
+	let playerFirstHand = player.hand.map((card) => card.displayVal)
+	let dealerFirstHand = dealer.hand.map((card) => card.displayVal)
+
+	// End game if Player or Dealer has 21
+	if (playerScore === 21 && dealerScore != 21) {
+		document.write(`Player wins ! <br>`);
+		return `Player wins !`; // showhand() prints total and displayVal before this.
+	} else if (dealerScore === 21 && playerScore != 21) {
+		document.write(`Dealer wins!`);
+		return ` Dealer wins!`;
+	} else if (dealerScore === 21 && playerScore === 21) {
+		document.write(`Player's hand is ${playerFirstHand.join(', ')} (21) and Dealer's hand is ${dealerFirstHand.join(', ')} (21). It's a tie`);
+		return `Player's hand is ${playerFirstHand.join(', ')} (21) and Dealer's hand is ${dealerFirstHand.join(', ')} (21). It's a tie`
 	}
+
 	while (playerScore < 21 && confirm(getMessage(playerScore, dealer.hand[0]))) {
 		player.drawCard();
 		playerScore = calcPoints(player.hand).total;
@@ -159,12 +169,6 @@ const startGame = function () {
 	}
 	console.log(`Player stands at ${playerScore}`);
 
-	let dealerScore = calcPoints(dealer.hand).total;
-
-	// Added this for extra credit but to review
-	if (dealerScore === 21) {
-		return 'Dealer wins!';
-	}
 	while (dealerScore < 21 && dealerShouldDraw(dealer.hand)) {
 		dealer.drawCard();
 		dealerScore = calcPoints(dealer.hand).total;
