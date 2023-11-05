@@ -49,7 +49,7 @@ const calcPoints = (hand) => {
 
 		// Calculate number of mandatory deductions 
 		// Maximum of 1 Ace value at 11 
-		deductAllButOne = (numAces - 1) * 10
+		deductAllButOne = (numAces - 1) * 10;
 		total -= deductAllButOne;
 
 		if (total <= 21) {
@@ -144,19 +144,19 @@ const startGame = function () {
 	let dealerScore = calcPoints(dealer.hand).total;
 
 	// Show of player's and dealer's hand
-	let playerFirstHand = player.hand.map((card) => card.displayVal)
-	let dealerFirstHand = dealer.hand.map((card) => card.displayVal)
+	let playerFirstHand = player.hand.map((card) => card.displayVal);
+	let dealerFirstHand = dealer.hand.map((card) => card.displayVal);
 
 	// End game if Player or Dealer has 21
 	if (playerScore === 21 && dealerScore != 21) {
 		document.write(`Player wins ! <br>`);
-		return `Player wins !`; // showhand() prints total and displayVal before this.
+		return `Player wins !`; 								// showhand() prints total and displayVal before this
 	} else if (dealerScore === 21 && playerScore != 21) {
 		document.write(`Dealer wins!`);
 		return ` Dealer wins!`;
 	} else if (dealerScore === 21 && playerScore === 21) {
 		document.write(`Player's hand is ${playerFirstHand.join(', ')} (21) and Dealer's hand is ${dealerFirstHand.join(', ')} (21). It's a tie`);
-		return `Player's hand is ${playerFirstHand.join(', ')} (21) and Dealer's hand is ${dealerFirstHand.join(', ')} (21). It's a tie`
+		return `Player's hand is ${playerFirstHand.join(', ')} (21) and Dealer's hand is ${dealerFirstHand.join(', ')} (21). It's a tie`;
 	}
 
 	while (playerScore < 21 && confirm(getMessage(playerScore, dealer.hand[0]))) {
