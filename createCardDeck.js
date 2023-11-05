@@ -14,17 +14,21 @@ const getDeck = () => {
 			// special cases for when j > 10
 			let displayVal = '';
 
-			// changed this from switch case
-			if (j === 1) {
-				displayVal = 'Ace';
-			} else if (j === 11) {
-				displayVal = 'Jack';
-			} else if (j === 12) {
-				displayVal = 'Queen';
-			} else if (j === 13) {
-				displayVal = 'King';
-			} else {
-				displayVal = j; // not to.string() for the console to work.
+			switch (j) {
+				case 1:
+					displayVal = 'Ace';
+					break;
+				case 11:
+					displayVal = 'Jack';
+					break;
+				case 12:
+					displayVal = 'Queen';
+					break;
+				case 13:
+					displayVal = 'King';
+					break;
+				default:
+					displayVal = j;
 			}
 
 			const card = {
@@ -61,10 +65,9 @@ const cardHasSuit =
 	randomCard && randomCard.suit && typeof randomCard.suit === 'string';
 console.log(`Random card has suit? ${cardHasSuit}`);
 
-
 const cardHasDisplayVal =
-  randomCard &&
-  randomCard.displayVal &&
-  typeof randomCard.displayVal === 'string';
+	randomCard &&
+	randomCard.displayVal &&
+	typeof randomCard.displayVal === 'string';
 
 console.log(`Random card has display value? ${cardHasDisplayVal}`);
