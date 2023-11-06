@@ -10,20 +10,20 @@ const foodIsCooked = function (kind, internalTemp, doneness) {
 	// If it's beef, the doneness depends on the temperature
 	if (kind == 'beef') {
 		// For temps less than 125, doneness should be rare.
-		if (internalTemp < 125 && doneness == "rare") {
+		if (internalTemp < 125 && doneness == 'rare') {
 			return true;
 			// For temps between 125 and 155, doneness should be medium.
-		} else if (internalTemp >= 125 && internalTemp < 155 && doneness == "medium") {
+		} else if (internalTemp >= 125 && internalTemp < 155 && doneness === 'medium') {
 			return true;
 			// For temps above 155, doneness should be well.
-		} else if (internalTemp > 155 && doneness == "well") {
+		} else if (internalTemp > 155 && doneness === 'well') {
 			return true;
-		} 
+		}
 		// If it's chicken, then temperature has to be above 165
-	} else if (kind = "chicken" && internalTemp > 165) {
+	} else if (kind === 'chicken' && internalTemp > 165) {
 		return true;
-	} 
-		return false;
+	}
+	return false;
 }
 
 

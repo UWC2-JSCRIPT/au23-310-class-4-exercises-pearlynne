@@ -28,7 +28,7 @@ const getDeck = () => {
 					displayVal = 'King';
 					break;
 				default:
-					displayVal = j;
+					displayVal = j.toString();
 			}
 
 			const card = {
@@ -48,7 +48,7 @@ const getDeck = () => {
 			deck.push(card);
 		}
 	}
-	return deck
+	return deck;
 }
 
 // CHECKS
