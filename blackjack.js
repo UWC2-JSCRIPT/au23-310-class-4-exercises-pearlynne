@@ -192,8 +192,8 @@ const startGame = function () {
 		document.write(`Dealer went over 21 - you win! <br>`);
 		return `Dealer went over 21 - you win!`;
 	}
-	document.write(`Dealer stands at ${dealerScore} <br>`);
-	console.log(`Dealer stands at ${dealerScore}`);
+	document.write(`Dealer stands at ${dealerScore}. <br>`);
+	console.log(`Dealer stands at ${dealerScore}.`);
 
 	return determineWinner(playerScore, dealerScore);
 }
