@@ -1,17 +1,17 @@
 const cards = [
-  { val: 2, displayVal: "2", suit: "hearts" },
-  { val: 3, displayVal: "3", suit: "hearts" },
-  { val: 4, displayVal: "4", suit: "hearts" },
-  { val: 5, displayVal: "5", suit: "hearts" },
-  { val: 6, displayVal: "6", suit: "hearts" },
-  { val: 7, displayVal: "7", suit: "hearts" },
-  { val: 8, displayVal: "8", suit: "hearts" },
-  { val: 9, displayVal: "9", suit: "hearts" },
-  { val: 10, displayVal: "10", suit: "hearts" },
-  { val: 10, displayVal: "Jack", suit: "hearts" },
-  { val: 10, displayVal: "Queen", suit: "hearts" },
-  { val: 10, displayVal: "King", suit: "hearts" },
-  { val: 11, displayVal: "Ace", suit: "hearts" }
+	{ val: 2, displayVal: "2", suit: "hearts" },
+	{ val: 3, displayVal: "3", suit: "hearts" },
+	{ val: 4, displayVal: "4", suit: "hearts" },
+	{ val: 5, displayVal: "5", suit: "hearts" },
+	{ val: 6, displayVal: "6", suit: "hearts" },
+	{ val: 7, displayVal: "7", suit: "hearts" },
+	{ val: 8, displayVal: "8", suit: "hearts" },
+	{ val: 9, displayVal: "9", suit: "hearts" },
+	{ val: 10, displayVal: "10", suit: "hearts" },
+	{ val: 10, displayVal: "Jack", suit: "hearts" },
+	{ val: 10, displayVal: "Queen", suit: "hearts" },
+	{ val: 10, displayVal: "King", suit: "hearts" },
+	{ val: 11, displayVal: "Ace", suit: "hearts" }
 ];
 
 /**
@@ -21,7 +21,24 @@ const cards = [
  * @param {array} cards
  * @return {string} displayVal
  */
-const cardsWorthTen = cards => {};
+const cardsWorthTen = cards => {
+	// Filter all cards with value of 10
+	cardsWithVal10 = cards.filter((item) => (item.val === 10));
+	
+	// Map all displayVal into an array
+	cardsDisplay10 = cardsWithVal10.map(item => item.displayVal); 
+
+	// Return array by joining with ","
+	return cardsDisplay10.join(', ');
+}
 
 console.log(cardsWorthTen(cards));
 // should return/log "10, Jack, Queen, King"
+
+
+// let result = [];
+// 	testVariable = cards.filter((item) => {
+// 		if (item.val === 10) {
+// 			result.push(item.displayVal);
+// 		}
+// 	})
