@@ -22,15 +22,23 @@ const cards = [
  * @return {string} displayVal
  */
 const cardsWorthTen = cards => {
-	let result = [];
-	testVariable = cards.filter((item) => {
-		if (item.val === 10) {
-			result.push(item.displayVal);
-		}
-	})
-	return result.join(', ');
-};
+	// Filter all cards with value of 10
+	cardsWithVal10 = cards.filter((item) => (item.val === 10));
+	
+	// Map all displayVal into an array
+	cardsDisplay10 = cardsWithVal10.map(item => item.displayVal); 
 
+	// Return array by joining with ","
+	return cardsDisplay10.join(', ');
+}
 
 console.log(cardsWorthTen(cards));
 // should return/log "10, Jack, Queen, King"
+
+
+// let result = [];
+// 	testVariable = cards.filter((item) => {
+// 		if (item.val === 10) {
+// 			result.push(item.displayVal);
+// 		}
+// 	})
